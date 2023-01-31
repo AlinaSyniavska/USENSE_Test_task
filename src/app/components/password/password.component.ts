@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
-import {debounceTime, Subscription} from "rxjs";
 import {commonHelper} from "../../helpers";
 
 @Component({
@@ -11,20 +10,13 @@ import {commonHelper} from "../../helpers";
 export class PasswordComponent implements OnInit {
 
   form: FormGroup;
-  obs: Subscription;
 
   constructor() {
     this._createForm();
   }
 
   ngOnInit() {
-    this.obs = this.form.valueChanges
-      .pipe(debounceTime(500))
-      .subscribe(data => this.checkPasswordStrength(data));
-  }
 
-  ngOnDestroy() {
-    this.obs.unsubscribe();
   }
 
   _createForm(): void {
@@ -43,9 +35,9 @@ export class PasswordComponent implements OnInit {
     const passwordStrong = commonHelper.hasLetters(pass) && commonHelper.hasNumbers(pass) && commonHelper.hasSymbols(pass);
   }
 
-  /*  onInputChange(event: Event): void {
+    onInputChange(event: Event): void {
       const enteredPassword = (event.target as HTMLInputElement).value;
       console.log(enteredPassword);
-    }*/
+    }
 
 }
