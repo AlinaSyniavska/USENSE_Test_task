@@ -1,5 +1,5 @@
 export const RegEx = {
-  passwordNumbers: new RegExp(/^\d+$/g),
-  passwordLetters: new RegExp(/^[a-z]+/gi),
-  passwordSymbols: new RegExp(/^[.,!?_@#$%^&*(){}]+$/g),
+  passwordNumbers: new RegExp(/^\d+$/),
+  passwordLetters: new RegExp(/^[a-z]+/i),
+  passwordSymbols: new RegExp(/^[.,!?_@#$%^&*(){}]+$/),
 }

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {commonHelper} from "../../helpers";
 
 @Component({
@@ -21,33 +21,28 @@ export class PasswordComponent implements OnInit {
 
   _createForm(): void {
     this.form = new FormGroup({
-      password: new FormControl(null),
+      password: new FormControl(null, [Validators.minLength(8)]),
     });
   }
 
   checkPasswordStrength(pass: string): void {
     console.log(pass);
 
+    const arrClasses = ['grey-section', 'red-section', 'yellow-section', 'green-section'];
     const easy = document.getElementById('strength-easy');
     const medium = document.getElementById('strength-medium');
     const strong = document.getElementById('strength-strong');
 
-    easy && easy.classList.remove('grey-section', 'red-section', 'yellow-section', 'green-section');
-    medium && medium.classList.remove('grey-section', 'red-section', 'yellow-section', 'green-section');
-    strong && strong.classList.remove('grey-section', 'red-section', 'yellow-section', 'green-section');
+    easy && easy.classList.remove(...arrClasses);
+    medium && medium.classList.remove(...arrClasses);
+    strong && strong.classList.remove(...arrClasses);
 
     // Only letters/digits/symbols - the password is easy;
     // Combination of letters-symbols/letters-digits/digits-symbols - the password is medium;
     // Has letters, symbols and numbers - the password is strong;
 
-
-
     const passwordStrong = commonHelper.hasLetters(pass) && commonHelper.hasNumbers(pass) && commonHelper.hasSymbols(pass);
-    // console.log(passwordStrong)
 
-    console.log(commonHelper.hasLetters(pass))
-    console.log(commonHelper.hasNumbers(pass))
-    console.log(commonHelper.hasSymbols(pass))
 
     if(passwordStrong) {
       easy && easy.classList.add('green-section');
