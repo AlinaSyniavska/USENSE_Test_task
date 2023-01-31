@@ -1,7 +1,6 @@
 .wrap {
   width: 100vw;
   height: 100vh;
-  background: gainsboro;
   display: flex;
   justify-content: center;
   font-size: 18px;

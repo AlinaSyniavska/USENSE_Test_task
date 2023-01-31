@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
 import {debounceTime, Subscription} from "rxjs";
+import {commonHelper} from "../../helpers";
 
 @Component({
   selector: 'app-password',
@@ -18,7 +19,7 @@ export class PasswordComponent implements OnInit {
 
   ngOnInit() {
     this.obs = this.form.valueChanges
-      .pipe(debounceTime(1000))
+      .pipe(debounceTime(500))
       .subscribe(data => this.checkPasswordStrength(data));
   }
 
@@ -33,7 +34,13 @@ export class PasswordComponent implements OnInit {
   }
 
   checkPasswordStrength(pass: string): void {
-    console.log(pass)
+    console.log(pass);
+    // Only letters/digits/symbols - the password is easy;
+    // Combination of letters-symbols/letters-digits/digits-symbols - the password is medium;
+    // Has letters, symbols and numbers - the password is strong;
+
+
+    const passwordStrong = commonHelper.hasLetters(pass) && commonHelper.hasNumbers(pass) && commonHelper.hasSymbols(pass);
   }
 
   /*  onInputChange(event: Event): void {
