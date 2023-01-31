@@ -13,7 +13,7 @@ export class PasswordComponent implements OnInit {
   obs: Subscription;
 
   constructor() {
-    this.createForm();
+    this._createForm();
   }
 
   ngOnInit() {
@@ -26,7 +26,7 @@ export class PasswordComponent implements OnInit {
     this.obs.unsubscribe();
   }
 
-  createForm(): void {
+  _createForm(): void {
     this.form = new FormGroup({
       password: new FormControl(null),
     });
