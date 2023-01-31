@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+
 import {commonHelper} from "../../helpers";
 
 @Component({
@@ -16,7 +17,6 @@ export class PasswordComponent implements OnInit {
   }
 
   ngOnInit() {
-
   }
 
   _createForm(): void {
@@ -25,9 +25,13 @@ export class PasswordComponent implements OnInit {
     });
   }
 
-  checkPasswordStrength(pass: string): void {
-    console.log(pass);
+  onInputChange(event: Event): void {
+    const enteredPassword = (event.target as HTMLInputElement).value;
 
+    this.checkPasswordStrength(enteredPassword);
+  }
+
+  checkPasswordStrength(pass: string): void {
     const arrClasses = ['grey-section', 'red-section', 'yellow-section', 'green-section'];
     const easy = document.getElementById('strength-easy');
     const medium = document.getElementById('strength-medium');
@@ -37,25 +41,17 @@ export class PasswordComponent implements OnInit {
     medium && medium.classList.remove(...arrClasses);
     strong && strong.classList.remove(...arrClasses);
 
-    // Only letters/digits/symbols - the password is easy;
-    // Combination of letters-symbols/letters-digits/digits-symbols - the password is medium;
-    // Has letters, symbols and numbers - the password is strong;
+    const passwordStrong = commonHelper.calculateStrength(pass);
+    console.log(passwordStrong);
 
-    const passwordStrong = commonHelper.hasLetters(pass) && commonHelper.hasNumbers(pass) && commonHelper.hasSymbols(pass);
-
-
-    if(passwordStrong) {
-      easy && easy.classList.add('green-section');
-      medium && medium.classList.add('green-section');
-      strong && strong.classList.add('green-section');
-    }
+    /*    if(passwordStrong) {
+          easy && easy.classList.add('green-section');
+          medium && medium.classList.add('green-section');
+          strong && strong.classList.add('green-section');
+        }*/
 
   }
 
-    onInputChange(event: Event): void {
-      const enteredPassword = (event.target as HTMLInputElement).value;
 
-      this.checkPasswordStrength(enteredPassword);
-    }
 
 }

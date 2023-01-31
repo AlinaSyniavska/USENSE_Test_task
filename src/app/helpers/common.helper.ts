@@ -16,6 +16,8 @@ const commonHelper = {
 
     states.push(commonHelper.hasLetters(password), commonHelper.hasNumbers(password), commonHelper.hasSymbols(password));
     const result = states.filter(state => state === true);
+    console.log(states)
+    console.log(result)
 
     switch (result.length) {
       case 1:
