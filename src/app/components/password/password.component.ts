@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 import {commonHelper} from "../../helpers";
+import {strengthLevel} from "../../constants";
 
 @Component({
   selector: 'app-password',
@@ -31,7 +32,7 @@ export class PasswordComponent implements OnInit {
     this.checkPasswordStrength(enteredPassword);
   }
 
-  checkPasswordStrength(pass: string): void {
+  checkPasswordStrength(password: string): void {
     const arrClasses = ['grey-section', 'red-section', 'yellow-section', 'green-section'];
     const easy = document.getElementById('strength-easy');
     const medium = document.getElementById('strength-medium');
@@ -41,15 +42,32 @@ export class PasswordComponent implements OnInit {
     medium && medium.classList.remove(...arrClasses);
     strong && strong.classList.remove(...arrClasses);
 
-    const passwordLevel = commonHelper.calculateStrength(pass);
+    const passwordLevel = commonHelper.calculateStrength(password);
     console.log(passwordLevel);
 
-    /*    if(passwordStrong) {
-          easy && easy.classList.add('green-section');
-          medium && medium.classList.add('green-section');
-          strong && strong.classList.add('green-section');
-        }*/
+    if(password.length < 8) {
+      easy && easy.classList.add('red-section');
+      medium && medium.classList.add('red-section');
+      strong && strong.classList.add('red-section');
+    } else if (passwordLevel === strengthLevel.EASY) {
+      easy && easy.classList.add('red-section');
+      medium && medium.classList.add('grey-section');
+      strong && strong.classList.add('grey-section');
+    } else if (passwordLevel === strengthLevel.MEDIUM) {
+      easy && easy.classList.add('yellow-section');
+      medium && medium.classList.add('yellow-section');
+      strong && strong.classList.add('grey-section');
+    } else if (passwordLevel === strengthLevel.STRONG) {
+      easy && easy.classList.add('green-section');
+      medium && medium.classList.add('green-section');
+      strong && strong.classList.add('green-section');
+    } else if (passwordLevel === strengthLevel.NOT_VALID) {
+      easy && easy.classList.add('red-section');
+      medium && medium.classList.add('red-section');
+      strong && strong.classList.add('red-section');
 
+// TODO error msg block
+    }
   }
 
 
