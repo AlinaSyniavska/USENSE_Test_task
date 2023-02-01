@@ -34,21 +34,23 @@ export class PasswordComponent implements OnInit {
 
   checkPasswordStrength(password: string): void {
     const arrClasses = ['grey-section', 'red-section', 'yellow-section', 'green-section'];
-    const easy = document.getElementById('strength-easy');
-    const medium = document.getElementById('strength-medium');
-    const strong = document.getElementById('strength-strong');
+    const easy = document.getElementById('strength-easy') as HTMLDivElement;
+    const medium = document.getElementById('strength-medium') as HTMLDivElement;
+    const strong = document.getElementById('strength-strong') as HTMLDivElement;
+    const error = document.getElementById('error') as HTMLDivElement;
 
-    easy && easy.classList.remove(...arrClasses);
-    medium && medium.classList.remove(...arrClasses);
-    strong && strong.classList.remove(...arrClasses);
+    easy.classList.remove(...arrClasses);
+    medium.classList.remove(...arrClasses);
+    strong.classList.remove(...arrClasses);
+    error.innerHTML = '';
 
     const passwordLevel = commonHelper.calculateStrength(password);
-    console.log(passwordLevel);
 
     if(password.length < 8) {
       easy && easy.classList.add('red-section');
       medium && medium.classList.add('red-section');
       strong && strong.classList.add('red-section');
+      error.innerHTML = 'Password has less than 8 character';
     } else if (passwordLevel === strengthLevel.EASY) {
       easy && easy.classList.add('red-section');
       medium && medium.classList.add('grey-section');
@@ -65,11 +67,8 @@ export class PasswordComponent implements OnInit {
       easy && easy.classList.add('red-section');
       medium && medium.classList.add('red-section');
       strong && strong.classList.add('red-section');
-
-// TODO error msg block
+      error.innerHTML = 'Password is not valid';
     }
   }
-
-
 
 }
