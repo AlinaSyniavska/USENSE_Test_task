@@ -24,7 +24,6 @@ const commonHelper = {
   },
   matchingStrength: (level: string, password: string): boolean => {
     const states = [];
-    let result;
 
     switch (level) {
       case strengthLevel.EASY:
@@ -43,8 +42,7 @@ const commonHelper = {
         states.length = 0;
     }
 
-    result = states.some(state => state === true);
-    return result;
+    return states.some(state => state === true);
   },
 
   calculateStrength: (password: string): string => {
