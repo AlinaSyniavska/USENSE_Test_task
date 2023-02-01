@@ -10,27 +10,52 @@ const commonHelper = {
   hasSymbols: (value: string): boolean => {
     return RegEx.passwordSymbols.test(value);
   },
-  calculateStrength: (password: string): string => {
+  hasLettersNumbers: (value: string): boolean => {
+    return RegEx.passwordLettersNumbers.test(value);
+  },
+  hasLettersSymbols: (value: string): boolean => {
+    return RegEx.passwordLettersSymbols.test(value);
+  },
+  hasNumbersSymbols: (value: string): boolean => {
+    return RegEx.passwordNumbersSymbols.test(value);
+  },
+  hasPasswordFull: (value: string): boolean => {
+    return RegEx.passwordFull.test(value);
+  },
+  matchingStrength: (level: string, password: string): boolean => {
     const states = [];
-    let level = '';
+    let result = false;
 
-    states.push(commonHelper.hasLetters(password), commonHelper.hasNumbers(password), commonHelper.hasSymbols(password));
-    const result = states.filter(state => state === true);
-    console.log(states)
-    console.log(result)
-
-    switch (result.length) {
-      case 1:
-        level = strengthLevel.EASY;
+    switch (level) {
+      case strengthLevel.EASY:
+        // Only letters/digits/symbols - the password is easy;
+        states.push(commonHelper.hasLetters(password), commonHelper.hasNumbers(password), commonHelper.hasSymbols(password));
         break;
-      case 2:
-        level = strengthLevel.MEDIUM;
+      case strengthLevel.MEDIUM:
+        // Combination of letters-symbols/letters-digits/digits-symbols - the password is medium;
+        states.push(commonHelper.hasLettersSymbols(password), commonHelper.hasLettersNumbers(password), commonHelper.hasNumbersSymbols(password), )
         break;
-      case 3:
-        level = strengthLevel.STRONG;
+      case strengthLevel.STRONG:
+        // Has letters, symbols and numbers - the password is strong;
+        states.push(commonHelper.hasPasswordFull(password));
         break;
       default:
-        level = strengthLevel.NOT_VALID;
+        states.length = 0;
+    }
+
+    result = states.some(state => state === true);
+    return result;
+  },
+
+  calculateStrength: (password: string): string => {
+    let level = strengthLevel.NOT_VALID;
+
+    if(commonHelper.matchingStrength(strengthLevel.EASY, password)) {
+      level = strengthLevel.EASY;
+    } else if(commonHelper.matchingStrength(strengthLevel.MEDIUM, password)) {
+      level = strengthLevel.MEDIUM;
+    } else if(commonHelper.matchingStrength(strengthLevel.STRONG, password)) {
+      level = strengthLevel.STRONG;
     }
 
     return level;

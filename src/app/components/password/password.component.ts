@@ -41,8 +41,8 @@ export class PasswordComponent implements OnInit {
     medium && medium.classList.remove(...arrClasses);
     strong && strong.classList.remove(...arrClasses);
 
-    const passwordStrong = commonHelper.calculateStrength(pass);
-    console.log(passwordStrong);
+    const passwordLevel = commonHelper.calculateStrength(pass);
+    console.log(passwordLevel);
 
     /*    if(passwordStrong) {
           easy && easy.classList.add('green-section');
