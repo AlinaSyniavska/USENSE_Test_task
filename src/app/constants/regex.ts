@@ -1,9 +1,9 @@
 export const RegEx = {
   passwordNumbers: new RegExp(/^\d+$/),
-  passwordLetters: new RegExp(/^[a-zA-Z]+$/i),
+  passwordLetters: new RegExp(/^[a-zA-Z]+$/),
   passwordSymbols: new RegExp(/^[.,!?-_@#$%^&*(){}£"']+$/),
   passwordLettersNumbers: new RegExp(/^[a-zA-Z\d]+$/i),
-  passwordLettersSymbols: new RegExp(/^[a-zA-Z.,!?-_@#$%^&*(){}£"']+$/i),
+  passwordLettersSymbols: new RegExp(/^[a-zA-Z.,!?-_@#$%^&*(){}£"']+$/),
   passwordNumbersSymbols: new RegExp(/^[\d.,!?-_@#$%^&*(){}£"']+$/),
-  passwordFull: new RegExp(/^[a-zA-Z\d.,!?-_@#$%^&*(){}£"']+$/i),
+  passwordFull: new RegExp(/^[a-zA-Z\d.,!?-_@#$%^&*(){}£"']+$/),
 }

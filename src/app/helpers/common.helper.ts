@@ -48,6 +48,7 @@ const commonHelper = {
   },
 
   calculateStrength: (password: string): string => {
+    password = password.toLowerCase();
     let level = strengthLevel.NOT_VALID;
 
     if(commonHelper.matchingStrength(strengthLevel.EASY, password)) {
