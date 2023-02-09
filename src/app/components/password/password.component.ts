@@ -18,6 +18,11 @@ export class PasswordComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.form.valueChanges
+      .subscribe(({password}) => {
+        this.checkPasswordStrength(password);
+      });
+
   }
 
   _createForm(): void {
